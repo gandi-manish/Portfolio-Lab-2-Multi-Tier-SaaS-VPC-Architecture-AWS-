@@ -68,40 +68,20 @@ Design and deploy a multi-tier SaaS-ready AWS VPC infrastructure simulating real
 
 AWS SaaS Multi-Tier Architecture
 
-                           [Internet]
-                               |
-                           [Route 0.0.0.0/0]
-                               |
-                       +--------------------+
-                       |  Internet Gateway  |
-                       +--------------------+
-                               |
-                       +--------------------+
-                       |  Public Subnet 1   |  (10.20.1.0/24)
-                       |  Frontend EC2 (Bastion)  |
-                       +--------------------+
-                               |
-              ----------------------------------------
-              |                                      |
-    +--------------------+                +--------------------+
-    |  ALB (Load Balancer) |                |  Public Subnet 2   |
-    |   (Internet Facing)  |                |   (10.20.4.0/24)   |
-    +--------------------+                +--------------------+
-                               |
-                       +--------------------+
-                       | NAT Gateway (EIP)  |
-                       +--------------------+
-                               |
-                       +--------------------+
-                       |  Private Subnet 1  | (10.20.2.0/24)
-                       |  Backend EC2       |
-                       +--------------------+
-                               |
-                       +--------------------+
-                       |  Private Subnet 2  | (10.20.3.0/24)
-                       |  (Database subnet) |
-                       +--------------------+
-
+               Internet
+                  |
+              Internet Gateway
+                  |
+          Application Load Balancer
+                  |
+          Public Subnet (Frontend)
+                  |
+      ---------------------------
+      |                         |
+  Private Subnet 1        Private Subnet 2
+  (Backend EC2)           (Database RDS)
+                  |
+          NAT Gateway for outbound internet
 
 
 ## Key Learnings
